@@ -54,9 +54,8 @@
                                     <th ClassName="th">Notes</th>
                                 </tr>
                                 {
-                                Object.keys(customers).map(function(key){
-                                    return (
-                                    
+                                Object.keys(customers).map((key) => {
+                                    return (                                    
                                     <tr ClassName="tr" id={[key]} key={[key]}>
                                         <td ClassName="td">{customers[key].firstName}</td>  
                                         <td ClassName="td">{customers[key].lastName} </td>

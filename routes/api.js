@@ -15,15 +15,23 @@ router.get('/customers', (req, res, next) => {
     }).catch(next);    
 });
 
+
 router.get('/customer', (req, res, next) => {
     if(req.query.id){
         Customer.findById({_id: req.query.id}).then(function(customer) {
-        res.send(customer);       
+        res.render('customer.ejs', {customer : customer});       
+        console.log(customer);
     }).catch(next);
     } else {
         res.sendFile('index.html', root);
     };    
 });
+
+/*
+router.get('/customer', (req, res, next) => {
+    req.query.id ? res.send(console.log(req.query.id)) : res.sendFile('/views/customer.html', root);       
+});
+*/
 
 //add a customer to the db
 // create new instance and save to db
@@ -38,7 +46,7 @@ router.put('/customers/:id', function(req,res,next){
     Customer.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
         Customer.findOne({_id: req.params.id}).then(function(customer){
             res.send(customer);
-        });
+        }).catch(next);
     });
 });
 
@@ -51,6 +59,6 @@ router.delete('/customers/:id', function(req,res,next){
 
 router.get('*', function(req, res){
     res.status(404).send('what???');
-  });
+});
 
 module.exports = router;
